@@ -3,22 +3,18 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-auth($_POST['token']);
+auth($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization']);
 
 //Required vars
 is_empty($_POST['g-recaptcha-response'], 'Captcha Response');
 
-//Load mail config
-$config = (object) array(
-    "secret_key" => "6Lc-1X0UAAAAAMhjb8AgOjEIEtLHpAVOuk3lq7uJ",
-);
-
 //Make validation request
-$url = "https://www.google.com/recaptcha/api/siteverify?secret={$config->secret_key}&response={$_POST['g-recaptcha-response']}";
+$url = "https://www.google.com/recaptcha/api/siteverify?secret={$GLOBALS['config']->services->recaptcha->secret_key}&response={$_POST['g-recaptcha-response']}";
 $response = json_decode(file_get_contents($url));
 
+// Output result
 if ($response->success) {
-    response(true, ["success" => "Captcha is valid."]);
+    response(true, 'Captcha is valid.');
 } else {
-    response(false, ["error" => "Captcha is invalid."]);
+    response(false, 'Captcha is invalid.');
 }

@@ -1,10 +1,10 @@
 <?php
 
 //Load api functions
-require $_SERVER['DOCUMENT_ROOT'] . '/functions.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-auth($_POST['token']);
+auth($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization']);
 
 //Required vars
 is_empty($_POST['from_name'], 'From name');
@@ -18,32 +18,21 @@ use PHPMailer\PHPMailer\PHPMailer;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
-//Load mail config
-$config = (object) array(
-    "Host" => "smtp.strato.com",
-    "SMTPAuth" => true,
-    "Username" => "no-reply@lucacastelnuovo.nl",
-    "Password" => "1BWWeAGWaYTjAECKqHlXulzRf1euc3mHzti155KSYH0x28uiZMq3blT13zOo9MpJDedYezF0YGx1sPsTJCU3heskArhJqo7nxMkfUtofxKRhNg0dvFcYIq0ht1s5a3sH",
-    "SMTPSecure" => "ssl",
-    "Port" => 465,
-    "From" => "no-reply@lucacastelnuovo.nl",
-);
-
 //Server configuration
 $mail = new PHPMailer();
 $mail->isSMTP();
 $mail->CharSet = 'UTF-8';
-$mail->Host = $config->Host;
-$mail->SMTPAuth = $config->SMTPAuth;
-$mail->Username = $config->Username;
-$mail->Password = $config->Password;
-$mail->SMTPSecure = $config->SMTPSecure;
-$mail->Port = $config->Port;
+$mail->Host = $GLOBALS['config']->services->mail->Host;
+$mail->SMTPAuth = $GLOBALS['config']->services->mail->SMTPAuth;
+$mail->Username = $GLOBALS['config']->services->mail->Username;
+$mail->Password = $GLOBALS['config']->services->mail->Password;
+$mail->SMTPSecure = $GLOBALS['config']->services->mail->SMTPSecure;
+$mail->Port = $GLOBALS['config']->services->mail->Port;
 $mail->msgHTML(true);
 
 //From
-$mail->setFrom($config->From, $_POST['from_name']);
-$mail->addReplyTo($config->From, $_POST['from_name']);
+$mail->setFrom($GLOBALS['config']->services->mail->From, $_POST['from_name']);
+$mail->addReplyTo($GLOBALS['config']->services->mail->From, $_POST['from_name']);
 
 //To
 $mail->addAddress($_POST['to']);
@@ -54,7 +43,7 @@ $mail->Body = $_POST['body'];
 
 //Execute mail send
 if ($mail->send()) {
-    response(true, ["success" => "Mail is sent."]);
+    response(true, 'Mail is sent.');
 } else {
-    response(false, ["error" => "Mail isn't sent."]);
+    response(false, 'Mail isn\'t sent.');
 }
