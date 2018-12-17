@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 $GLOBALS['config'] = require $_SERVER['DOCUMENT_ROOT'] . '/includes/config.php';
 
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/authentication.php';
