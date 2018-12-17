@@ -45,5 +45,5 @@ $mail->Body = $_POST['body'];
 if ($mail->send()) {
     response(true, 'Mail is sent.');
 } else {
-    response(false, 'Mail isn\'t sent.');
+    response(false, "Mail isn't sent.");
 }
