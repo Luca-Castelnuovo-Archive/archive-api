@@ -4,7 +4,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-authenticate_access($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization']);
+authenticate_access($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization'], 'api:mail');
 
 //Required vars
 is_empty($_POST['from_name'], 'From name');

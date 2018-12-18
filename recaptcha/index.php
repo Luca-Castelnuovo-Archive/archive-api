@@ -3,7 +3,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-auth($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization']);
+auth($_GET['access_token'], $_POST['access_token'], $_SERVER['Authorization'], 'api:recaptcha');
 
 //Required vars
 is_empty($_POST['g-recaptcha-response'], 'Captcha Response');
