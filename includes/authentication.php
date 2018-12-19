@@ -6,7 +6,11 @@ function authenticate_access($access_GET, $access_POST, $access_HEADER, $require
         response(false, 'bad_access_token');
     }
 
+    //validate token
     $token_valid = true;
+
+    //validate expires
+
     if (!$token_valid) {
         response(false, 'bad_access_token');
     }
