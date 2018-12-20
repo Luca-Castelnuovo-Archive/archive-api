@@ -31,6 +31,4 @@ if (in_array('user:applications', $access_token['scope'])) {
 
 $output['created'] = $user['created'];
 
-print_r($access_token['scope']);
-
 response(true, '', $output);
