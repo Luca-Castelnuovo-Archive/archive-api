@@ -19,7 +19,7 @@ $output['last_name'] = $user['last_name'];
 if (in_array('user:email', $access_token['scope'])) {
     $output['email'] = $user['email'];
 } else {
-    $output['email'] = null;
+    $output['email'] = 'not in array';
 }
 
 // Applications
