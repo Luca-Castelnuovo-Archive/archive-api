@@ -2,7 +2,7 @@
 
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
-$access_token = authenticate_access($_REQUEST['access_token'], $_SERVER['Authorization']);
+$access_token = authenticate_access($_REQUEST['access_token'], $_SERVER['Authorization'], 'read:basic');
 
 $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,created,applications', "id='{$access_token['user_id']}'", true);
 
