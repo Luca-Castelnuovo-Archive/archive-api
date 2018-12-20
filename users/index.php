@@ -8,4 +8,6 @@ $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,
 
 $user['applications'] = json_decode($user['applications'], true);
 
+$user['applications'] = array_intersect($user['applications'][$access_token['client_id']], $user['applications']);
+
 response(true, '', $user);

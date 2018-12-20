@@ -17,7 +17,7 @@ function response($success, $message = null, $extra = null)
         }
     }
 
-    if (isset($extra) && !empty($extra)) {
+    if (!empty($extra)) {
         $output = array_merge($output, $extra);
     }
 
