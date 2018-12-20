@@ -16,10 +16,14 @@ function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = 
     $scope = json_decode($access_data['scope']);
 
     if ($access_data['expires'] <= time()) {
-        response(false, 'bad_access_token');
+        response(false, 'bad_access_token_0');
     }
 
-    // Check token scope
+    if (isset($required_scope)) {
+        if (in_array($required_scope, $scope)) {
+            response(false, 'bad_access_token_1');
+        }
+    }
 
     return ['client_id' => $access_data['client_id'], 'user_id' => $access_data['user_id'], 'expires' => $access_data['expires'], 'scope' => $scope];
 }
