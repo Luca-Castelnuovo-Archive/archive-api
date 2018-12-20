@@ -16,14 +16,24 @@ function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = 
     $scope = json_decode($access_data['scope']);
 
     if ($access_data['expires'] <= time()) {
-        response(false, 'bad_access_token_0');
+        response(false, 'bad_access_token');
     }
 
     if (isset($required_scope)) {
-        if (in_array($required_scope, $scope)) {
-            response(false, 'bad_access_token_1');
-        }
+        scope_allowed($scope, $required_scope, true);
     }
 
     return ['client_id' => $access_data['client_id'], 'user_id' => $access_data['user_id'], 'expires' => $access_data['expires'], 'scope' => $scope];
+}
+
+function scope_allowed($scopes, $required_scope, $hard_fail = false) {
+    if (!in_array($required_scope, $scopes)) {
+        if ($hard_fail) {
+            response(false, 'request_out_of_scope');
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
 }

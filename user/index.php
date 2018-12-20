@@ -16,14 +16,14 @@ $output['first_name'] = $user['first_name'];
 $output['last_name'] = $user['last_name'];
 
 // Email
-if (in_array('user:email', $access_token['scope'])) {
+if (scope_allowed($access_token['scope'], 'read:email', false)) {
     $output['email'] = $user['email'];
 } else {
     $output['email'] = null;
 }
 
 // Applications
-if (in_array('user:applications', $access_token['scope'])) {
+if (scope_allowed($access_token['scope'], 'read:applications', false)) {
     $output['applications'] = $user['applications'];
 } else {
     $output['applications'] = null;
