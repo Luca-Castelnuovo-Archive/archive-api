@@ -5,11 +5,19 @@
 ###############
 
 //Reponse to client
-function response($success, $message, $extra = null)
+function response($success, $message = null, $extra = null)
 {
-    $output = ["success" => $success, "message" => strtolower($message)];
+    $output = ["success" => $success];
 
-    if (!empty($extra)) {
+    if (isset($message) && !empty($message)) {
+        if ($success) {
+            $output = array_merge($output, ["message" => $message]);
+        } else {
+            $output = array_merge($output, ["error" => $message]);
+        }
+    }
+
+    if (isset($extra) && !empty($extra)) {
         $output = array_merge($output, $extra);
     }
 
