@@ -8,6 +8,6 @@ $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,
 
 $user['applications'] = json_decode($user['applications'], true);
 
-$user['scope'] = $user['applications'][$user['client_id']];
+$user['scope'] = $user['applications'][$access_token['client_id']];
 
 response(true, '', $user);
