@@ -16,19 +16,21 @@ $output['first_name'] = $user['first_name'];
 $output['last_name'] = $user['last_name'];
 
 // Email
-if (in_array('email', $access_token['scope'])) {
+if (in_array('user:email', $access_token['scope'])) {
     $output['email'] = $user['email'];
 } else {
     $output['email'] = null;
 }
 
 // Applications
-if (in_array('applications', $access_token['scope'])) {
+if (in_array('user:applications', $access_token['scope'])) {
     $output['applications'] = $user['applications'];
 } else {
     $output['applications'] = null;
 }
 
 $output['created'] = $user['created'];
+
+print_r($access_token['scope']);
 
 response(true, '', $output);
