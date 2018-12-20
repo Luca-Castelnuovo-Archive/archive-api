@@ -9,7 +9,7 @@ function is_empty($var, $type ='Unknown')
 {
     if (empty($var)) {
         $type = strtolower(trim($type));
-        response(false, "{$type}_empty");
+        response(false, "missing_{$type}");
     }
 }
 

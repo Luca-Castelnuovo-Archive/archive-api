@@ -43,7 +43,7 @@ $mail->Body = $_POST['body'];
 
 //Execute mail send
 if ($mail->send()) {
-    response(true, 'Mail is sent.');
+    response(true, '');
 } else {
-    response(false, "Mail isn't sent.");
+    response(false, 'Show mail error.');
 }

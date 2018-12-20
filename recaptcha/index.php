@@ -14,7 +14,7 @@ $response = json_decode(file_get_contents($url));
 
 // Output result
 if ($response->success) {
-    response(true, 'Captcha is valid.');
+    response(true, '');
 } else {
-    response(false, 'Captcha is invalid.');
+    response(false, $response->error-codes);
 }

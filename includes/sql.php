@@ -6,7 +6,7 @@ function sql_connect()
     $conn = new mysqli($GLOBALS['config']->database->host, $GLOBALS['config']->database->user, $GLOBALS['config']->database->password, $GLOBALS['config']->database->database);
 
     if ($conn->connect_error) {
-        response(false, 'server_sql');
+        response(false, "Server can't connect to DataBase.");
     } else {
         return $conn;
     }
