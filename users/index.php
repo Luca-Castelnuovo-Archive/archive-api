@@ -8,6 +8,29 @@ $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,
 
 $user['applications'] = json_decode($user['applications'], true);
 
-$user['scope'] = $user['applications'][$access_token['client_id']];
+$scope = $user['applications'][$access_token['client_id']];
 
-response(true, '', $user);
+$output = [];
+$output['id'] = $user['id'];
+$output['picture_url'] = $user['picture_url'];
+$output['username'] = $user['username'];
+$output['first_name'] = $user['first_name'];
+$output['last_name'] = $user['last_name'];
+
+// Email
+if (in_array('email', $scope)) {
+    $output['email'] = $user['email'];
+} else {
+    $output['email'] = null;
+}
+
+// Applications
+if (in_array('applications', $scope)) {
+    $output['applications'] = $user['applications'];
+} else {
+    $output['applications'] = null;
+}
+
+$output['created'] = $user['created'];
+
+response(true, '', $output);
