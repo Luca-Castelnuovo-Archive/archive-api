@@ -11,7 +11,7 @@ function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = 
     $scope = json_decode($access_data['scope']);
 
     // Check if expires
-    if ($access['expires'] <= time()) {
+    if ($access_data['expires'] <= time()) {
         response(false, 'bad_access_token');
     }
 
