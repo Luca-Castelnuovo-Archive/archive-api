@@ -2,12 +2,17 @@
 
 function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = null)
 {
-    //set token from request or headder
+    if (!isset($access_REQUEST) && empty($access_REQUEST) && !isset($access_HEADER) && empty($access_HEADER)) {
+        response(false, 'bad_access_token');
+    } elseif (!isset($access_REQUEST) && empty($access_REQUEST)) {
+        $token = $access_HEADER;
+    } elseif (!isset($access_HEADER) && empty($access_HEADER)) {
+        $token = $access_HEADER;
+    }
 
-    $access_token = check_data($_REQUEST['access_token'], true, 'access_token', true);
+    $access_token = check_data($token, true, 'access_token', true);
 
-    // Query token
-    $access_data = sql_select('access_tokens', 'client_id,user_id,expires,scope', "access_token='{$access_token}'", true);
+    $access_data = sql_select('access_tokens', 'client_id,user_id,expires,scope', "access_token='{$token}'", true);
     $scope = json_decode($access_data['scope']);
 
     // Check if expires
