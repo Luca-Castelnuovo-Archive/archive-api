@@ -16,17 +16,17 @@ function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = 
     }
 
     // Validate token
-    $token_valid = false;
-    foreach ($scopes as $scope) {
-        if ($scope == $required_scope) {
-            $token_valid = true;
-            break;
-        }
-    }
-
-    if (!$token_valid) {
-        response(false, 'bad_access_token');
-    }
+    // $token_valid = false;
+    // foreach ($scopes as $scope) {
+    //     if ($scope == $required_scope) {
+    //         $token_valid = true;
+    //         break;
+    //     }
+    // }
+    //
+    // if (!$token_valid) {
+    //     response(false, 'bad_access_token');
+    // }
 
     return ['client_id' => $access_token['client_id'], 'user_id' => $access_token['user_id'], 'expires' => $access_token['expires'], 'scope' => $scope];
 }
