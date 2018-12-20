@@ -7,4 +7,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 // $user = sql_select('users', '*', "id='{$access_token['user_id']}'", true);
 $user = sql_select('users', '*', "id='12'", true);
 
+$user['applications'] = json_decode($user['applications'], true);
+
 response(true, '', $user);
