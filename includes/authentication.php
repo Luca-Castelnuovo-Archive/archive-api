@@ -30,23 +30,23 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false) {
     // Example $required_scope='basic:read'
     if (strpos($required_scope, ':') !== false) {
         if (!in_array($required_scope, $scopes)) {
-            if ($hard_fail) {
-                response(false, 'request_out_of_scope');
-            } else {
-                return false;
+            $required_scope_without_read = substr($required_scope, 0, strpos($required_scope, ":"));
+            if (!in_array($required_scope_without_read, $scopes)) {
+                if ($hard_fail) {
+                    response(false, 'request_out_of_scope');
+                } else {
+                    return false;
+                }
             }
         }
     }
 
-    // Exaple $required_scope='basic' (should allow access to basic:read)
-    if (!in_array($required_scope, $scopes)) {
-        $required_scope_read = $required_scope . ':read';
-        if (!in_array($required_scope_read, $scopes)) {
-            if ($hard_fail) {
-                response(false, 'request_out_of_scope');
-            } else {
-                return false;
-            }
+    // Exaple $required_scope='basic'
+    if (!in_array($required_scope_read, $scopes)) {
+        if ($hard_fail) {
+            response(false, 'request_out_of_scope');
+        } else {
+            return false;
         }
     }
 
