@@ -7,7 +7,9 @@
 //Reponse to client
 function response($success, $message = null, $extra = null)
 {
-    $output = ["success" => $success];
+    if (!empty($success)) {
+        $output = ["success" => $success];
+    }
 
     if (isset($message) && !empty($message)) {
         if ($success) {

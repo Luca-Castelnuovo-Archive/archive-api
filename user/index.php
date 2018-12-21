@@ -25,4 +25,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 }
 
-response(true, '', $output);
+response(null, '', $output);
