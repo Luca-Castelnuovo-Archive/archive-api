@@ -1,6 +1,6 @@
 <?php
 
-function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = null)
+function validate_access($access_REQUEST, $access_HEADER, $required_scope = null)
 {
     if (empty($access_REQUEST) && empty($access_HEADER)) {
         response(false, 'missing_access_token');
@@ -18,6 +18,9 @@ function authenticate_access($access_REQUEST, $access_HEADER, $required_scope = 
     if ($access_data['expires'] <= time()) {
         response(false, 'bad_access_token');
     }
+
+    // basic has access to basic:read
+    // basic:read doesn't have access to basic
 
     if (isset($required_scope)) {
         scope_allowed($scope, $required_scope, true);
