@@ -13,7 +13,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 
     case 'PUT':
-        $output = PUT_user($access_token['scope'], $access_token['user_id']);
+        $output = PUT_user($access_token['scope'], $access_token['user_id'], $_POST['picture_url'], $_POST['username'], $_POST['first_name'], $_POST['last_name'], $_POST['email']);
         break;
 
     case 'DELETE':
