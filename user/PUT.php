@@ -59,5 +59,5 @@ function METHOD_PUT($scope, $user_id) {
         ], "id='{$user_id}'");
     }
 
-    return GET_user($user_id);
+    return METHOD_GET($scope, $user_id);
 }
