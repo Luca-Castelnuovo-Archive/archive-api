@@ -9,15 +9,15 @@ require 'PUT.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        $output = GET_user($access_token['scope'], $access_token['user_id']);
+        $output = METHOD_GET($access_token['scope'], $access_token['user_id']);
         break;
 
     case 'PUT':
-        $output = PUT_user($access_token['scope'], $access_token['user_id']);
+        $output = METHOD_PUT($access_token['scope'], $access_token['user_id']);
         break;
 
     case 'DELETE':
-        $output = DELETE_user($access_token['scope'], $access_token['user_id']);
+        $output = METHOD_DELETE($access_token['scope'], $access_token['user_id']);
         break;
 
     default:

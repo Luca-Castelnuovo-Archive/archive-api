@@ -1,6 +1,6 @@
 <?php
 
-function PUT_user($scope, $user_id) {
+function METHOD_PUT($scope, $user_id) {
     scope_allowed($scope, 'basic', true);
 
     $user_id = check_data($user_id, true, 'user_id', true);
