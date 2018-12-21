@@ -27,6 +27,7 @@ function validate_access($access_REQUEST, $access_HEADER, $required_scope = null
 }
 
 function scope_allowed($scopes, $required_scope, $hard_fail = false) {
+    // Example $required_scope='basic:read'
     if (strpos($required_scope, ':') !== false) {
         if (!in_array($required_scope, $scopes)) {
             if ($hard_fail) {
@@ -35,15 +36,16 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false) {
                 return false;
             }
         }
-    } else {
-        if (!in_array($required_scope, $scopes)) {
-            $required_scope_read = $required_scope . ':read';
-            if (!in_array($required_scope_read, $scopes)) {
-                if ($hard_fail) {
-                    response(false, 'request_out_of_scope');
-                } else {
-                    return false;
-                }
+    }
+
+    // Exaple $required_scope='basic' (should allow access to basic:read)
+    if (!in_array($required_scope, $scopes)) {
+        $required_scope_read = $required_scope . ':read';
+        if (!in_array($required_scope_read, $scopes)) {
+            if ($hard_fail) {
+                response(false, 'request_out_of_scope');
+            } else {
+                return false;
             }
         }
     }
