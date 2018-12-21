@@ -5,11 +5,13 @@ function METHOD_PUT($scope, $user_id) {
 
     $user_id = check_data($user_id, true, 'user_id', true);
 
-    $picture_url = check_data($_REQUEST['picture_url'], false, '', true);
-    $username = check_data($_REQUEST['username'], false, '', true);
-    $first_name = check_data($_REQUEST['first_name'], false, '', true);
-    $last_name = check_data($_REQUEST['last_name'], false, '', true);
-    $email = check_data( $_REQUEST['email'], false, '', true);
+    parse_str(file_get_contents("php://input"), $put_vars);
+
+    $picture_url = check_data($put_vars['picture_url'], false, '', true);
+    $username = check_data($put_vars['username'], false, '', true);
+    $first_name = check_data($put_vars['first_name'], false, '', true);
+    $last_name = check_data($put_vars['last_name'], false, '', true);
+    $email = check_data($put_vars['email'], false, '', true);
 
     $user = sql_select('users', 'username,email', "id='{$user_id}'", true);
 
