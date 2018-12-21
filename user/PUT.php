@@ -5,11 +5,11 @@ function PUT_user($scope, $user_id, $picture_url, $username, $first_name, $last_
 
     $user_id = check_data($user_id, true, 'user_id', true);
 
-    $picture_url = check_data($picture_url, false, '', true);
-    $username = check_data($username, false, '', true);
-    $first_name = check_data($first_name, false, '', true);
-    $last_name = check_data($last_name, false, '', true);
-    $email = check_data($email, false, '', true);
+    $picture_url = check_data($_REQUEST['picture_url'], false, '', true);
+    $username = check_data($_REQUEST['username'], false, '', true);
+    $first_name = check_data($_REQUEST['first_name'], false, '', true);
+    $last_name = check_data($_REQUEST['last_name'], false, '', true);
+    $email = check_data( $_REQUEST['email'], false, '', true);
 
     $user = sql_select('users', 'username,email', "id='{$user_id}'", true);
 
