@@ -6,6 +6,7 @@ $access_token = validate_access($_REQUEST['access_token'], $_SERVER['Authorizati
 
 require 'GET.php';
 require 'PUT.php';
+require 'DELETE.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
