@@ -6,7 +6,7 @@ function GET_user($scope, $user_id) {
     $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,created,applications,developer,admin', "id='{$user_id}'", true);
 
     $output = [];
-    $output['id'] = $user['id'];
+    $output['id'] = intval($user['id']);
     $output['picture_url'] = $user['picture_url'];
     $output['username'] = $user['username'];
     $output['first_name'] = $user['first_name'];
@@ -26,8 +26,8 @@ function GET_user($scope, $user_id) {
         $output['applications'] = null;
     }
 
-    $output['developer'] = $user['developer'];
-    $output['admin'] = $user['admin'];
+    $output['developer'] = settype($user['developer'],'boolean');
+    $output['admin'] = settype($user['admin'],'boolean');
     $output['created'] = $user['created'];
 
     return $output;
