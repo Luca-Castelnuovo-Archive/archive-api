@@ -1,6 +1,6 @@
 <?php
 
-function GET($access_token) {
+function METHOD_GET($access_token) {
     $output = [];
 
     $output['expires'] = $access_token['expires'];
