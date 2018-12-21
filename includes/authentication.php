@@ -19,9 +19,6 @@ function validate_access($access_REQUEST, $access_HEADER, $required_scope = null
         response(false, 'bad_access_token');
     }
 
-    // basic has access to basic:read
-    // basic:read doesn't have access to basic
-
     if (isset($required_scope)) {
         scope_allowed($scope, $required_scope, true);
     }
@@ -30,13 +27,26 @@ function validate_access($access_REQUEST, $access_HEADER, $required_scope = null
 }
 
 function scope_allowed($scopes, $required_scope, $hard_fail = false) {
-    if (!in_array($required_scope, $scopes)) {
-        if ($hard_fail) {
-            response(false, 'request_out_of_scope');
-        } else {
-            return false;
+    if (strpos($required_scope, ':') !== false) {
+        if (!in_array($required_scope, $scopes)) {
+            if ($hard_fail) {
+                response(false, 'request_out_of_scope');
+            } else {
+                return false;
+            }
         }
     } else {
-        return true;
+        if (!in_array($required_scope, $scopes)) {
+            $required_scope_read = $required_scope . ':read';
+            if (!in_array($required_scope_read, $scopes)) {
+                if ($hard_fail) {
+                    response(false, 'request_out_of_scope');
+                } else {
+                    return false;
+                }
+            }
+        }
     }
+
+    return true;
 }
