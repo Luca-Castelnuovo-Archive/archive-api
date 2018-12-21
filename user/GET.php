@@ -3,7 +3,7 @@
 function GET_user($scope, $user_id) {
     $user_id = check_data($user_id, true, 'user_id', true);
 
-    $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,created,applications', "id='{$user_id}'", true);
+    $user = sql_select('users', 'id,username,email,first_name,last_name,picture_url,created,applications,developer,admin', "id='{$user_id}'", true);
 
     $output = [];
     $output['id'] = $user['id'];
@@ -26,6 +26,8 @@ function GET_user($scope, $user_id) {
         $output['applications'] = null;
     }
 
+    $output['developer'] = $user['developer'];
+    $output['admin'] = $user['admin'];
     $output['created'] = $user['created'];
 
     return $output;
