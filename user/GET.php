@@ -26,8 +26,8 @@ function GET_user($scope, $user_id) {
         $output['applications'] = null;
     }
 
-    $output['developer'] = settype($user['developer'],'boolean');
-    $output['admin'] = settype($user['admin'],'boolean');
+    $output['developer'] = (bool) $user['developer'];
+    $output['admin'] = (bool) $user['admin'];
     $output['created'] = $user['created'];
 
     return $output;
