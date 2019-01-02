@@ -21,7 +21,7 @@ require 'vendor/autoload.php';
 
 //Server configuration
 $mail = new PHPMailer(true);
-// $mail->SMTPDebug = 2;
+$mail->SMTPDebug = 2;
 $mail->isSMTP();
 $mail->CharSet = 'UTF-8';
 $mail->Host = $GLOBALS['config']->services->mail->Host;
@@ -47,5 +47,5 @@ $mail->Body = $_POST['body'];
 if ($mail->send()) {
     response(true, 200, 'mail_sent');
 } else {
-    response(false, 400, $mail->ErrorInfo);
+    response(false, 400, 'unknown_error');
 }
