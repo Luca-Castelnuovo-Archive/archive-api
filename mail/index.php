@@ -7,10 +7,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 validate_access($_REQUEST['access_token'], $_SERVER['Authorization'], 'client_credentials');
 
 //Required vars
-is_empty($_POST['from_name'], 'From name');
-is_empty($_POST['to'], 'To');
-is_empty($_POST['subject'], 'Subject');
-is_empty($_POST['body'], 'Body');
+is_empty($_POST['from_name'], 'from_name');
+is_empty($_POST['to'], 'to');
+is_empty($_POST['subject'], 'subject');
+is_empty($_POST['body'], 'body');
 
 // Import PHPMailer classes into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
