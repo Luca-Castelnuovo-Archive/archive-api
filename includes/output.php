@@ -5,7 +5,7 @@
 ###############
 
 //Reponse to client
-function response($success, $message = null, $extra = null)
+function response($success, $status_code = 200, $message = null, $extra = null)
 {
     $output = ["success" => $success];
 
@@ -21,23 +21,9 @@ function response($success, $message = null, $extra = null)
         $output = array_merge($output, $extra);
     }
 
+    header('Content-Type: application/json');
+    http_response_code($status_code);
+
     echo json_encode($output);
     exit;
-}
-
-
-//Make POST request
-function request($url, $data)
-{
-    $curl = curl_init();
-
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($curl);
-    curl_close($curl);
-    $result = json_decode($result, true);
-
-    return $result;
 }

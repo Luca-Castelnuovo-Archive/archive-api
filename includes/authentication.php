@@ -3,7 +3,7 @@
 function validate_access($access_REQUEST, $access_HEADER, $required_scope = null)
 {
     if (empty($access_REQUEST) && empty($access_HEADER)) {
-        response(false, 'missing_access_token');
+        response(false, 401, 'access_token_missing');
     } elseif (!empty($access_REQUEST)) {
         $token = $access_REQUEST;
     } elseif (!empty($access_HEADER)) {
@@ -16,7 +16,7 @@ function validate_access($access_REQUEST, $access_HEADER, $required_scope = null
     $scope = json_decode($access_data['scope']);
 
     if ($access_data['expires'] <= time()) {
-        response(false, 'bad_access_token');
+        response(false, 401, 'access_token_expired');
     }
 
     if (isset($required_scope)) {
@@ -32,7 +32,7 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false) {
             $required_scope_without_read = substr($required_scope, 0, strpos($required_scope, ":"));
             if (!in_array($required_scope_without_read, $scopes)) {
                 if ($hard_fail) {
-                    response(false, 'request_out_of_scope');
+                    response(false, 401, 'request_out_of_scope');
                 } else {
                     return false;
                 }
@@ -41,7 +41,7 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false) {
     } else {
         if (!in_array($required_scope, $scopes)) {
             if ($hard_fail) {
-                response(false, 'request_out_of_scope');
+                response(false, 401, 'request_out_of_scope');
             } else {
                 return false;
             }

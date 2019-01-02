@@ -7,7 +7,7 @@ function METHOD_GET($access_token) {
     $output['scope'] = $access_token['scope'];
 
     if ($output['expires'] <= time()) {
-        response(false, 'bad_access_token');
+        response(false, 401, 'access_token_expired');
     }
 
     return $output;

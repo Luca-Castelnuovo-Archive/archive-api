@@ -12,8 +12,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 
     default:
-        response(false, 'incorrect_http_method');
+        response(false, 405, 'method_not_allowed');
         break;
 }
 
-response(true, '', $output);
+response(true, 200, '', $output);

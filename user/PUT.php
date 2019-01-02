@@ -25,7 +25,7 @@ function METHOD_PUT($scope, $user_id) {
         if ($username != $user['username']) {
             $existing_username = sql_select('users', 'id', "username='{$username}'", false);
             if ($existing_username->num_rows > 0) {
-                response(false, 'username_already_taken');
+                response(false, 400, 'username_already_taken');
             }
         }
 
@@ -52,7 +52,7 @@ function METHOD_PUT($scope, $user_id) {
         if ($email != $user['email']) {
             $existing_email = sql_select('users', 'id', "email='{$email}'", false);
             if ($existing_email->num_rows > 0) {
-                response(false, 'email_already_taken');
+                response(false, 400, 'email_already_taken');
             }
         }
 
