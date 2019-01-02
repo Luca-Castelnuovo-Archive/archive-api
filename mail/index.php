@@ -14,12 +14,14 @@ is_empty($_POST['body'], 'body');
 
 // Import PHPMailer classes into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
 //Server configuration
-$mail = new PHPMailer();
+$mail = new PHPMailer(true);
+// $mail->SMTPDebug = 2;
 $mail->isSMTP();
 $mail->CharSet = 'UTF-8';
 $mail->Host = $GLOBALS['config']->services->mail->Host;
@@ -45,5 +47,5 @@ $mail->Body = $_POST['body'];
 if ($mail->send()) {
     response(true, 200, 'mail_sent');
 } else {
-    response(false, 400, 'unknown_error');
+    response(false, 400, $mail->ErrorInfo);
 }
