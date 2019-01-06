@@ -5,8 +5,6 @@ function validate_access($required_scope = null)
     $access_request = $_REQUEST['access_token'];
     $access_headers = trim($_SERVER["Authorization"]);
 
-    response(false, 200, 'headers', getallheaders());
-
     if (empty($access_headers)) {
         if (empty($access_request)) {
             response(false, 401, 'access_token_missing');
