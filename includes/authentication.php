@@ -17,13 +17,13 @@ function validate_access($required_scope = null)
         }
     }
 
-    $access_token = check_data($token, true, 'access_token', true);
+    $access_token = check_data($token, false, '', true);
 
     $access_data = sql_select('access_tokens', 'client_id,user_id,expires,scope', "access_token='{$token}'", true);
     $scope = json_decode($access_data['scope']);
 
     if ($access_data['expires'] <= time()) {
-        response(false, 401, 'access_token_expired');
+        response(false, 401, 'bad_credentials');
     }
 
     if (isset($required_scope)) {
