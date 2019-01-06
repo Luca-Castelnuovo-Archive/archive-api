@@ -1,13 +1,20 @@
 <?php
 
-function validate_access($access_REQUEST, $access_HEADER, $required_scope = null)
+function validate_access($required_scope = null)
 {
-    if (empty($access_REQUEST) && empty($access_HEADER)) {
-        response(false, 401, 'access_token_missing');
-    } elseif (!empty($access_REQUEST)) {
-        $token = $access_REQUEST;
-    } elseif (!empty($access_HEADER)) {
-        $token = $access_HEADER;
+    $access_request = $_REQUEST['access_token'];
+    $access_headers = trim($_SERVER["Authorization"]);
+
+    if (empty($access_headers)) {
+        if (empty($access_request)) {
+            response(false, 401, 'access_token_missing');
+        } else {
+            $token = $access_request;
+        }
+    } else {
+        if (preg_match('/Bearer\s(\S+)/', $access_headers, $matches)) {
+            $token = $matches[1];
+        }
     }
 
     $access_token = check_data($token, true, 'access_token', true);

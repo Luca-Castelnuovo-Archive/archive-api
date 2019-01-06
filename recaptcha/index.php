@@ -3,7 +3,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-validate_access($_REQUEST['access_token'], $_SERVER['Authorization'], 'client_credentials');
+validate_access('client_credentials');
 
 //Required vars
 is_empty($_POST['g-recaptcha-response'], 'Captcha Response');

@@ -2,7 +2,7 @@
 
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
-$access_token = validate_access($_REQUEST['access_token'], $_SERVER['Authorization']);
+$access_token = validate_access();
 
 require 'GET.php';
 
