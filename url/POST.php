@@ -25,6 +25,7 @@ function METHOD_POST($url) {
     }
 
     $output['url'] = $request['shorturl'];
+    $output['message'] = $request['message'];
 
     return $output;
 }
