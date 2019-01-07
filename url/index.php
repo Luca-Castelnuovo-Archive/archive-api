@@ -8,7 +8,7 @@ require 'POST.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-        $output = METHOD_POST($_POST['url'], $_POST['keyword']);
+        $output = METHOD_POST($_POST['url']);
         break;
 
     default:
