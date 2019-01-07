@@ -9,7 +9,7 @@ function METHOD_POST($url, $keyword) {
         'keyword'  => $keyword,
         'format'   => 'json',
         'action'   => 'shorturl',
-        'signature' => $username
+        'signature' => $GLOBALS['config']->services->url->signature
     ];
 
     $request = request('POST', 'http://url.lucacastelnuovo.nl/yourls-api.php', $data);
