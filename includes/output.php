@@ -27,3 +27,21 @@ function response($success, $status_code = 200, $message = null, $extra = null)
     echo json_encode($output);
     exit;
 }
+
+function request($method, $url, $data = false, $headers = []) {
+    $curl = curl_init($url);
+
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+    if ($data) {
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    }
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $response = json_decode($response, true);
+    return $response;
+}
