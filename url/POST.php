@@ -12,13 +12,14 @@ function METHOD_POST($url, $keyword) {
         'signature' => $GLOBALS['config']->services->url->signature
     ];
 
-    $request = request('POST', 'http://url.lucacastelnuovo.nl/yourls-api.php', $data);
+    $request = request('POST', 'https://url.lucacastelnuovo.nl/yourls-api.php', $data);
 
-    echo json_encode($request);
-    exit;
-
-    if (!$request['status']) {
-        response(false, 400, 'request_failed');
+    if ($request['status'] !== 'success') {
+        unset($request['status']);
+        unset($request['url']);
+        unset($request['title']);
+        unset($request['statusCode']);
+        response(false, 400, 'request_failed', $request);
     }
 
     $output['url'] = $request['shorturl'];
