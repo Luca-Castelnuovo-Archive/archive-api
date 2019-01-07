@@ -18,7 +18,10 @@ function METHOD_POST($url, $keyword) {
         unset($request['status']);
         unset($request['url']);
         unset($request['title']);
+        unset($request['code']);
         unset($request['statusCode']);
+        $request['url'] = $request['shorturl'];
+        unset($request['shorturl']);
         response(false, 400, 'request_failed', $request);
     }
 
