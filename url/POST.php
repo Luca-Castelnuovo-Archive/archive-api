@@ -14,8 +14,11 @@ function METHOD_POST($url, $keyword) {
 
     $request = request('POST', 'http://url.lucacastelnuovo.nl/yourls-api.php', $data);
 
+    echo json_encode($request);
+    exit;
+
     if (!$request['status']) {
-        response(false, 400, 'request_failed', $request);
+        response(false, 400, 'request_failed');
     }
 
     $output['url'] = $request['shorturl'];
