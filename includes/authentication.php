@@ -39,8 +39,8 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false, $client_id 
         if (!in_array($required_scope, $scopes)) {
             $required_scope_without_read = substr($required_scope, 0, strpos($required_scope, ":"));
             if (!in_array($required_scope_without_read, $scopes)) {
-                log_action('1', 'oauth.request.out_of_scope.' . $required_scope, $_SERVER["REMOTE_ADDR"], $user_id, $client_id);
                 if ($hard_fail) {
+                    log_action('1', 'oauth.request.out_of_scope.' . $required_scope, $_SERVER["REMOTE_ADDR"], $user_id, $client_id);
                     response(false, 401, 'request_out_of_scope');
                 } else {
                     return false;
@@ -50,6 +50,7 @@ function scope_allowed($scopes, $required_scope, $hard_fail = false, $client_id 
     } else {
         if (!in_array($required_scope, $scopes)) {
             if ($hard_fail) {
+                log_action('1', 'oauth.request.out_of_scope.' . $required_scope, $_SERVER["REMOTE_ADDR"], $user_id, $client_id);
                 response(false, 401, 'request_out_of_scope');
             } else {
                 return false;
