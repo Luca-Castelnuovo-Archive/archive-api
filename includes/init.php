@@ -9,5 +9,3 @@ require $_SERVER['DOCUMENT_ROOT'] . '/includes/sql.php';
 
 // External
 require '/var/www/logs.lucacastelnuovo.nl/public_html/logs.php';
-
-// log_action('1', 'service.test', $_SERVER["REMOTE_ADDR"], 'USER_ID', 'CLIENT_ID');
