@@ -3,7 +3,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-validate_access('client_credentials');
+$access_token = validate_access('client_credentials');
 
 //Required vars
 is_empty($_POST['g-recaptcha-response'], 'Captcha Response');
@@ -16,5 +16,6 @@ $response = json_decode(file_get_contents($url));
 if ($response->success) {
     response(true, 200, 'captcha_valid');
 } else {
+    log_action('1', 'captcha.invalid', $_SERVER["REMOTE_ADDR"], '', $access_token['client_id']);
     response(false, 400, $response->error-codes);
 }

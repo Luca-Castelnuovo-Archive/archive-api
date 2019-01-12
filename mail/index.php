@@ -4,7 +4,7 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/init.php';
 
 //Authenticate
-validate_access('client_credentials');
+$access_token = validate_access('client_credentials');
 
 //Required vars
 is_empty($_POST['from_name'], 'from_name');
@@ -45,7 +45,9 @@ $mail->Body = $_POST['body'];
 
 //Execute mail send
 if ($mail->send()) {
+    log_action('1', 'mail.success', $_SERVER["REMOTE_ADDR"], $_POST['to'], $access_token['client_id']);
     response(true, 200, 'mail_sent');
 } else {
+    log_action('1', 'mail.error', $_SERVER["REMOTE_ADDR"], $_POST['to'], $access_token['client_id']);
     response(false, 400, 'unknown_error');
 }

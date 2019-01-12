@@ -1,7 +1,8 @@
 <?php
 
-function METHOD_PUT($scope, $user_id) {
-    scope_allowed($scope, 'basic', true);
+function METHOD_PUT($scope, $user_id, $client_id)
+{
+    scope_allowed($scope, 'basic', true, $client_id, $user_id);
 
     $user_id = check_data($user_id, true, 'user_id', true);
 
@@ -47,7 +48,7 @@ function METHOD_PUT($scope, $user_id) {
     }
 
     if (!empty($email)) {
-        scope_allowed($scope, 'email', true);
+        scope_allowed($scope, 'email', true, '', $user_id);
 
         if ($email != $user['email']) {
             $existing_email = sql_select('users', 'id', "email='{$email}'", false);
@@ -61,5 +62,6 @@ function METHOD_PUT($scope, $user_id) {
         ], "id='{$user_id}'");
     }
 
+    log_action('1', 'user.updated', $_SERVER["REMOTE_ADDR"], $user_id, $client_id);
     return METHOD_GET($scope, $user_id);
 }

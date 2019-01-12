@@ -27,17 +27,19 @@ function validate_access($required_scope = null)
     }
 
     if (isset($required_scope)) {
-        scope_allowed($scope, $required_scope, true);
+        scope_allowed($scope, $required_scope, true, $access_data['client_id'], $access_data['user_id']);
     }
 
     return ['client_id' => $access_data['client_id'], 'user_id' => $access_data['user_id'], 'expires' => $access_data['expires'], 'scope' => $scope];
 }
 
-function scope_allowed($scopes, $required_scope, $hard_fail = false) {
+function scope_allowed($scopes, $required_scope, $hard_fail = false, $client_id = null, $user_id = null)
+{
     if (strpos($required_scope, ':') !== false) {
         if (!in_array($required_scope, $scopes)) {
             $required_scope_without_read = substr($required_scope, 0, strpos($required_scope, ":"));
             if (!in_array($required_scope_without_read, $scopes)) {
+                log_action('1', 'oauth.request.out_of_scope.' . $required_scope, $_SERVER["REMOTE_ADDR"], $user_id, $client_id);
                 if ($hard_fail) {
                     response(false, 401, 'request_out_of_scope');
                 } else {

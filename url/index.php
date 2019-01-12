@@ -8,7 +8,7 @@ require 'POST.php';
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-        $output = METHOD_POST($_POST['url']);
+        $output = METHOD_POST($_POST['url'], $access_token['client_id']);
         break;
 
     default:

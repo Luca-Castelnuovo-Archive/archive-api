@@ -1,6 +1,7 @@
 <?php
 
-function METHOD_POST($url) {
+function METHOD_POST($url, $client_id)
+{
     $url = check_data($url, true, 'url', true);
     $data = [
         'url'      => $url,
@@ -27,5 +28,6 @@ function METHOD_POST($url) {
     $output['url'] = $request['shorturl'];
     $output['message'] = $request['message'];
 
+    log_action('1', 'url.created', $_SERVER["REMOTE_ADDR"], '', $client_id);
     return $output;
 }
