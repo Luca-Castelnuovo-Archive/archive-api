@@ -12,7 +12,7 @@ function METHOD_POST($url, $client_id)
 
     $request = request('POST', 'https://url.lucacastelnuovo.nl/yourls-api.php', $data);
 
-    if ($request['status'] !== 'success' && strpos($request['message'], 'already exists in database') !== false) {
+    if ($request['status'] !== 'success' && !strpos($request['message'], 'already exists in database') !== false) {
         unset($request['status']);
         unset($request['url']);
         unset($request['title']);
@@ -23,7 +23,7 @@ function METHOD_POST($url, $client_id)
         $error = $request['message'];
         unset($request['shorturl']);
         unset($request['message']);
-        response(true, 200, $error, $request);
+        response(false, 400, $error, $request);
     }
 
     $output['url'] = 'http://l1c.me/' . explode('/', $request['shorturl'])[3];
