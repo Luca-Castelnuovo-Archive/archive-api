@@ -25,7 +25,8 @@ function METHOD_POST($url, $client_id)
         response(false, 400, $error, $request);
     }
 
-    $output['url'] = $request['shorturl'];
+    $output['url'] = 'http://l1c.me/' . explode('/', $request['shorturl'])[3];
+    $output['long_url'] = $url;
     $output['message'] = $request['message'];
 
     log_action('1', 'url.created', $_SERVER["REMOTE_ADDR"], '', $client_id);
