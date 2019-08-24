@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 $GLOBALS['config'] = require $_SERVER['DOCUMENT_ROOT'] . '/includes/config.php';
 
 require $_SERVER['DOCUMENT_ROOT'] . '/includes/authentication.php';

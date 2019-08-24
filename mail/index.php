@@ -16,9 +16,6 @@ is_empty($_POST['body'], 'body');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//Load Composer's autoloader
-require 'vendor/autoload.php';
-
 //Server configuration
 $mail = new PHPMailer(true);
 // $mail->SMTPDebug = 2;
